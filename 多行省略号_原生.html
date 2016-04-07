@@ -1,0 +1,74 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+
+</head>
+<body class="m-listitem">
+<p class="detail">sdfffffffffffffff撒的发斯蒂芬ff士大夫士大夫士大夫fffsdfsdfsdf是打发第三方是的发生的丰盛的</p>
+<p class="detail">sdffffff的发斯蒂芬ff士大夫士sdf大夫士大夫fffsdfsdfsdf是打发第三方sdfsdf是的发sdf生的丰盛的</p>
+<p class="detail">发斯蒂芬ff士夫fffsdfsdfsdf是打发第三方是的dsfsdf丰盛的</p>
+<p class="detail">sdfffffffffffffff撒的发斯蒂芬ff士大夫士大夫士大夫fffsdfsdfsdf是打发第三方是的发生的丰盛的</p>
+</body>
+
+<script type="text/javascript">
+window.onload=function(){
+    
+    // function strlen(str){
+    //     var len = str.length;
+    //     var cnChar = str.match(/[^\x00-\x80]/g);//利用match方法检索出中文字符并返回一个存放中文的数组 
+    //     var  len = len + cnChar.length;//算出实际的字符长度 
+    //     return len;
+    // }
+    function strlen(str){
+        var len = 0;
+        for (var i=0; i<str.length; i++) { 
+         var c = str.charCodeAt(i); 
+        //单字节加1 
+         if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) { 
+           len++; 
+         } 
+         else { 
+          len+=2; 
+         } 
+        } 
+        return len;
+    }
+    function strsubstring(str){
+        var len = 0;
+        for (var i=0; i<str.length; i++) { 
+             var c = str.charCodeAt(i); 
+            //单字节加1 
+             if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) { 
+               len++; 
+             } 
+             else { 
+              len+=2; 
+             } 
+             if(len >= 16)
+                return str.substring(0,i);
+        } 
+    }
+// 超字截断加...
+    // for(var i = 0; i < dets.length; i++ ){
+    //     var deta = $(dets[i]);
+    //     // if(deta.text().length > 65)
+    //     // deta.text(deta.text().substr(0,65)+"...")
+    //     var ll = strlen(deta.text());
+    //     if(ll > 16){
+    //         deta.text(strsubstring(deta.text())+"...");
+    //     }
+
+    // }
+    var str = document.getElementsByClassName("detail");
+        for(var i=0;i<str.length;i++)
+        {
+        if(strlen(str.item(i).innerHTML)>8)
+        {
+            str.item(i).innerHTML=strsubstring(str.item(i).innerHTML);
+            str.item(i).innerHTML+="...";
+        }
+    }
+
+}
+</script>
+<html>

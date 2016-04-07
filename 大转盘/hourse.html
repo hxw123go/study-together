@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- PC端使用 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<!-- 手机端使用 -->
+	<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=1, minimal-ui"/>
+	<title>跑马灯抽奖</title>
+	<style type="text/css">
+	.wrap{
+	  width: 960px;
+	  margin: 0 auto;
+	}
+	.prize {
+	  padding: 5px;
+	  background: #fff8c9;
+	}
+	.prize li {
+	  float: left;
+	  width: 260px;
+	  height: 160px;
+	  margin: 10px 10px;
+	  background: #fca901;
+	  overflow-y:hidden; /*解决ie6下li错位*/
+
+	  _display: inline;
+	}
+	.prize li.active {
+	  background: red;
+	}
+
+	.prize .btn-lottery {
+	  display: block;
+	  width: 260px;
+	  height: 160px;
+	  line-height:160px;
+	  background: orange;
+	  color:#fff;
+	  font-size:30px;
+	  font-weight:bold;
+	  text-align:center;
+	  text-decoration:none;
+	}
+
+	.prize .btn-lottery:hover {
+	  background: #ffd336;
+	}
+
+	.prize .prize-area {
+	  display: block;
+	  height: 110px;
+	  margin: 10px 10px 0;
+	  text-align: center;
+	  line-height: 110px;
+	  background: #fff6e4;
+	}
+	.prize .prize-area img{vertical-align: middle;}
+
+	.prize h4 {
+	  margin: 0;
+	  height:30px;
+	  font:14px/40px simsun;
+	  text-align: center;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="prize clearfix" id="prizes">
+	      <li class="prizebg active" index="1">
+	        <div class="prize-area"><img src="http://img3.cache.netease.com/game/img15/hxw/dazhuanpan-lottery/horse/img/ele3.png" alt=""></div>
+	        <h4>一等奖：阿狸抱枕x1</h4>
+	      </li>
+	      <li class="prizebg" index="2">
+	        <div class="prize-area"><img src="http://img3.cache.netease.com/game/img15/hxw/dazhuanpan-lottery/horse/img/ele4.png" alt=""></div>
+	        <h4>二等奖：10000银子x1</h4>
+	      </li>
+	      <li class="prizebg" index="3">
+	        <div class="prize-area"><img src="http://img3.cache.netease.com/game/img15/hxw/dazhuanpan-lottery/horse/img/ele5.png" alt=""></div>
+	        <h4>三等奖：iphone5sx1</h4>
+	      </li>
+	      <li class="prizebg" index="8">
+	        <div class="prize-area"><img src="http://img3.cache.netease.com/game/img15/hxw/dazhuanpan-lottery/horse/img/ele6.png" alt=""></div>
+	        <h4>0等奖：1000欢乐豆x1</h4>
+	      </li>
+	      <li>
+	        <a href="javascript:;" class="btn btn-lottery" id="btn-lottery">立刻抽奖</a>
+	      </li>
+	      <li class="prizebg" index="4">
+	        <div class="prize-area"><img src="http://img3.cache.netease.com/game/img15/hxw/dazhuanpan-lottery/horse/img/ele3.png" alt=""></div>
+	        <h4>4等奖：继续努力</h4>
+	      </li>
+	      <li class="prizebg" index="7">
+	        <div class="prize-area"><img src="http://img3.cache.netease.com/game/img15/hxw/dazhuanpan-lottery/horse/img/ele7.png" alt=""></div>
+	        <h4>7等奖：创意马乐杯x1</h4>
+	      </li>
+	      <li class="prizebg" index="6">
+	        <div class="prize-area"><img src="http://img3.cache.netease.com/game/img15/hxw/dazhuanpan-lottery/horse/img/ele3.png" alt=""></div>
+	        <h4>6等奖：雷蛇鼠标x1</h4>
+	      </li>
+	      <li class="prizebg" index="5">
+	        <div class="prize-area"><img src="http://img3.cache.netease.com/game/img15/hxw/dazhuanpan-lottery/horse/img/ele3.png" alt=""></div>
+	        <h4>5等奖：1000银子x1</h4>
+	      </li>
+	    </ul>
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/horse.js"></script>
+    <script type="text/javascript">
+    	var flag = true;//用于标实点击抽奖有效
+	    $btnLottery = $('#btn-lottery');
+	    $prizes = $('.prizebg');
+	    var prizeArr = [0,1,2,4,7,6,5,3]; // 奖品数组
+  		var n = 0;
+  		function callbackFun(text){
+  			alert(text);
+  			flag = true;
+  		}
+  		$btnLottery.on('click',function(){
+  			if(flag){
+		        // 本地模拟随机生成奖品
+		        var n = prizeArr[Math.floor(Math.random()*prizeArr.length)];
+		        flag = false;
+		        console.log('开始抽奖')
+		        // 调用跑马灯效果，参数(所有奖品的类,选中状态类，奖品的排序数组，最后停留的奖品（按顺时针计数，从1开始，最后一个是0）)
+		        switch(n){
+					case 1:
+					  lightChange($prizes, "active", prizeArr, 1,function(){callbackFun("恭喜或得到1等奖")});
+					  break;
+					case 2:
+					  lightChange($prizes, "active", prizeArr, 2,function(){callbackFun("恭喜或得到2等奖")});
+					  break;
+					case 3:
+					  lightChange($prizes, "active", prizeArr, 3,function(){callbackFun("恭喜或得到3等奖")});
+					  break;
+					case 4:
+					  lightChange($prizes, "active", prizeArr, 4,function(){callbackFun("恭喜或得到4等奖")});
+					  break;
+					case 5:
+					  lightChange($prizes, "active", prizeArr, 5,function(){callbackFun("恭喜或得到5等奖")});
+					  break;
+					case 6:
+					  lightChange($prizes, "active", prizeArr, 6,function(){callbackFun("恭喜或得到6等奖")});
+					  break;
+					case 7:
+					  lightChange($prizes, "active", prizeArr, 7,function(){callbackFun("恭喜或得到7等奖")});
+					  break;
+					case 8:
+					  lightChange($prizes, "active", prizeArr, 0,function(){callbackFun("恭喜或得到0等奖")});
+					  break;
+					default:
+					  lightChange($prizes, "active", prizeArr, 1,function(){callbackFun("抽奖失败")});
+				}
+		        
+		    }
+  			
+  			
+        	     
+
+	  	});
+    </script>
+</body>
+</html>

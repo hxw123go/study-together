@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- PC端使用 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<!-- 手机端使用 -->
+	<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=1, minimal-ui"/>
+
+	<title>大转盘抽奖</title>
+	<style type="text/css">
+	.lottery {
+	  position: relative;
+	  margin: 0 auto;
+	  width: 474px;
+	  height: 474px;
+	}
+	.lotteryBg{
+      transition: transform 2s;
+	  -webkit-transition: -webkit-transform 2s;
+      -moz-transition: -moz-transform 2s;
+      -o-transition: -o-transform 2s;
+	}
+	.lotteryBtn {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  width: 280px;
+	  height: 280px;
+	  margin: -140px 0 0 -140px;
+	}
+	.lotteryBtn img{border: 0;}
+
+/* 弹窗样式 */
+    .m-subDialog{display:none;position: absolute;z-index:100;left:0;top:50px;/*margin-left:-202px;*/width:404px;border: 5px solid #f90063;background: #fff;color: #333;}
+    .m-subDialog .m-subDialog-close{position: absolute;right:20px;top:10px;cursor:pointer;padding-right: 0;
+        transition:all 0.6s;
+        -webkit-transition:all 0.6s;}
+    .m-subDialog .m-subDialog-close:hover{
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+    .m-subDialog dl{padding:20px 27px 0 27px;}
+    .m-subDialog dt{color: #f90063;font-size: 18px;margin-bottom: 15px;}
+    .m-subDialog .int{margin-bottom:10px;}
+    .m-subDialog span{padding-right:20px;}
+    .m-subDialog dd{margin-bottom:10px;}
+    .m-subDialog .inp{height:23px;width:220px;border: 1px solid #ccc;padding:0 5px;}
+	</style>
+</head>
+<body>
+	<div class="lottery">
+        <img src="img/lotteryBg.png" class="lotteryBg" id="lotteryWheel">
+        <a href="javascript:;" class="lotteryBtn">
+          <img src="img/lotteryArrow.png" class="lotterya" id="lotteryArrow">
+        </a>
+    </div>
+    
+    <div class="m-subDialog" id="fillpop">
+        <dl>
+            <dt>请输入相关信息：</dt>
+            <dd>
+                <span>姓名</span>
+                <input id="username" class="inp" name="username" type="text" value="">
+            </dd>
+            <dd>
+                <span>电话</span>
+                <input id="telphone" class="inp" name="telphone" type="text" value="">
+            </dd>
+            <dd>
+                <span>地址</span>
+                <input id="email" class="inp" name="email" type="text" value="">
+            </dd>
+            <dd>
+                <input type="submit" class="u-up" value="提交" id="info-submit">
+            </dd>
+        </dl>
+        <span id="diaClose" class="m-subDialog-close">X</span>
+    </div>
+
+
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/BigRotate.js"></script>
+    <script type="text/javascript">
+
+    var islogin = true;
+    var lotteryTotal = 3;
+    var flag = true;//用于标实点击抽奖有效
+    $lotterywheel = $('#lotteryWheel');//圆盘
+    // $lotterywheel = document.getElementById('lotteryWheel');
+    $lotteryArrow = $('#lotteryArrow');//抽奖按钮
+    $fillpop = $('#fillpop');
+    $submit = $('#info-submit');
+    /* 抽奖 */
+    // 转盘转动完之后的事件
+    function alertFun(text){
+        alert(text);
+        flag = true;
+    }
+
+    /* 抽奖按钮事件绑定 */ 
+    var data = [1,2,3,0]; //返回的数组
+    $lotteryArrow.on('click',function(){
+        if(flag){
+            console.log("开始抽奖");
+            // 本地模拟随机生成奖品
+            var n = data[Math.floor(Math.random()*data.length)];
+            flag = false;
+            // 调用抽奖插件，参数(转动的盘,几等奖，改奖品旋转角度，中奖之后执行的函数)
+            if(n == 1){
+                rotateFunc($lotterywheel,1,45,function(){alertFun("恭喜或得到一等奖")});
+            } else if(n== 2){
+                rotateFunc($lotterywheel,1,90,function(){alertFun("恭喜或得到二等奖")});
+            } else if(n == 3){
+                rotateFunc($lotterywheel,3,135,function(){alertFun("恭喜或得到三等奖")});
+            }
+            
+        }
+    })
+    /* 抽奖按钮事件绑定 end */
+    
+
+    
+
+    
+    </script>
+</body>
+</html>

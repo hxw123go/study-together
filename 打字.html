@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- PC端使用 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <!-- 手机端使用 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=1, minimal-ui"/>
+
+    <title>打字插件</title>
+    <link rel="stylesheet" href="http://img3.cache.netease.com/game/img13/common/assets/css/normalize.css"/>
+    <style type="text/css">
+        
+    </style>
+
+<body>
+	<div id="ntesannouce" class="ntesannoucepos" style="top: -72px;">
+    	<ul>
+            <li><a href="http://play.163.com/16/0302/10/BH5621TO00314OSE.html?from=topbar" target="_blank">日本男子自制并出售怪物弹珠稀有角色被捕</a></li>
+            <li><a href="http://a.163.com/16/0302/09/BH547IO400314RS6.html?from=topbar" target="_blank">《风暴英雄》死灵法师上线 设计师谈亮点</a></li>
+            <li><a href="http://play.163.com/photoview/6LRI0031/84767.html#p=BH55S9926LRI0031?from=topbar" target="_blank">欧式宫廷风！韩国第一美少女晒清纯美照</a></li>
+            <li><a href="http://play.163.com/photoview/6LRI0031/84742.html#p=BH2LVAO26LRI0031?from=topbar" target="_blank">爆乳呼之欲出！嫩模刘飞儿性感睡衣写真</a></li>
+            <li><a href="http://gg.163.com/16/0301/10/BH2JIJS700314QV4.html?from=topbar" target="_blank">不做不死：魔术师火车站内直播变枪被带走</a></li>
+        </ul>
+    </div>
+    <p id="writeByOne">魔术师火车站内直播变枪被带走</p>
+   	<script type="text/javascript">
+	    (function(){
+	        var getH = function(d){
+	            return d.offsetHeight || d.clientHeight;
+	        }
+	        var index = 0,
+	            ntesannouce = document.getElementById('ntesannouce'),
+	            ul = ntesannouce.getElementsByTagName('ul')[0],
+	            len = ul.getElementsByTagName('li').length,
+	            as = ul.getElementsByTagName('a'),             
+	            height = getH(ul),
+	            step = height / len;
+	        var move = function(d,c){
+	            d.style.top = -step*index + 'px';
+	            var texta = as[index],
+	                text = texta.innerHTML,
+	                textlen = text.length,
+	                tcount = 1;
+	            texta.innerHTML = '';
+	            var inter = setInterval(function(){
+	                tcount++;
+	                texta.innerHTML = text.substring(0,tcount);
+	                if(tcount > textlen){
+	                    clearInterval(inter); 
+	                    index++
+	                    c();
+	                    return;
+	                }
+	            },60)
+	        }
+	        
+	        if(ntesannouce.length <= 0) return;
+	        var ex = function(){
+	            setTimeout(function(){
+	                if(index >= len) {ntesannouce.style.top = 0;index = 0;}
+	                move(ntesannouce,function(){
+	                    ex();
+	                });
+	            },3000)
+	        }
+	        move(ntesannouce,function(){
+	            ex();
+	        });
+
+	        // 打字函数
+	        function typeByOne(obj){
+	        	var texta = obj,
+	                text = texta.innerHTML,
+	                textlen = text.length,
+	                tcount = 1;
+	            obj.innerHTML = '';
+	            var wordTime = setInterval(function(){
+	                obj.innerHTML = text.substring(0,tcount);
+	                tcount++;
+	                if(tcount > textlen){
+	                    clearInterval(wordTime); 
+	                    return;
+	                }
+	            },500)
+	        }
+	        var words = document.getElementById('writeByOne');
+	        typeByOne(words);
+
+
+	    })();
+	</script>
+</body>
+
+</html>
